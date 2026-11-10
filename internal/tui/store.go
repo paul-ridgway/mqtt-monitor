@@ -124,6 +124,10 @@ type tree struct {
 	topics int
 	rows   []*node
 	dirty  bool
+
+	// autoExpand opens new branches while fewer than this many rows are
+	// visible, so small brokers show everything without a keypress.
+	autoExpand int
 }
 
 func newTree() *tree {
@@ -143,6 +147,7 @@ func (t *tree) add(e *entry) {
 				depth:    i,
 				parent:   n,
 				children: map[string]*node{},
+				expanded: len(t.visible()) < t.autoExpand,
 			}
 			n.children[p] = c
 			n.sorted = nil

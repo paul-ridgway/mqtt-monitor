@@ -4,20 +4,14 @@
 
 A terminal client for MQTT brokers: watch messages arrive, browse a live topic tree, change subscriptions on the fly and publish, all from one full-screen view.
 
-```
-╭─ Topics ───────────── 4 ─╮╭─ Messages ─────────────────────────────────────────── 382 ─╮
-│▾ home (191)              ││08:57:09.104  0 home/kitchen/temp         23.5              │
-│  ▾ hall (95)             ││08:57:09.106  0 home/hall/motion          ON                │
-│      motion  ON          ││08:57:09.107  0 zigbee2mqtt/bridge/state  {"state":"online"…│
-│  ▾ kitchen (96)          │╰────────────────────────────────────────────────────────────╯
-│      temp  26.5          │╭─ Message ─────────────────────────────── 17 B · view auto ─╮
-│▸ zigbee2mqtt (191)       ││zigbee2mqtt/lamp                                            │
-│                          ││2026-11-10 08:56:24.832 · QoS 0 · json                      │
-│                          ││{                                                           │
-│                          ││  "brightness": 42                                          │
-╰──────────────────────────╯╰────────────────────────────────────────────────────────────╯
- ● connected │ mqtt://paul@broker:1883 │ v5 │ subs: # │ 382 msgs · 7.8/s       ? help · q quit
-```
+![Demo](demo.gif "Demo")
+
+| | |
+| --- | --- |
+| ![Overview](docs/overview.png) | ![Topic tree](docs/tree.png) |
+| **Live view**: topic tree with latest values, message list, detail pane and status bar | **Topic tree**: browse the hierarchy, pretty-printed JSON for the selected topic |
+| ![Subscriptions](docs/subscribe.png) | ![Publish](docs/publish.png) |
+| **Subscriptions**: add, replace or remove topics mid-run, with completion from topics seen | **Publish**: topic completion, multi-line payloads, JSON check, QoS and retain |
 
 ## Running
 
@@ -118,6 +112,7 @@ Every connection is remembered in `~/.config/mqtt-monitor/config.json` (or `$MQM
 ```
 ./scripts/build.sh         # build into ./bin, then run ./bin/mqmon
 ./scripts/test-run.sh      # build and run against a throwaway Mosquitto broker in Docker
+./scripts/record-demo.sh   # re-record demo.gif and docs/*.png with VHS (Docker)
 go run ./cmd/mqmon         # run from source
 go test ./...              # run the tests
 ./scripts/local-install.sh

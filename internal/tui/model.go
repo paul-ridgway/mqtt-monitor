@@ -892,9 +892,11 @@ func (m *Model) emptyListText() string {
 }
 
 func (m *Model) renderTree(w, h int) string {
-	rows := m.tree.visible()
 	inner := w - 2
 	visible := h - 2
+	// New branches open automatically while everything still fits.
+	m.tree.autoExpand = visible
+	rows := m.tree.visible()
 	if m.treeSel == nil && len(rows) > 0 {
 		m.treeSel = rows[0]
 	}
@@ -965,7 +967,7 @@ func (m *Model) renderDetail(w, h int) string {
 	inner := w - 2
 	m.detail.Width = inner
 	m.detail.Height = h - 2
-	if e != m.detailFor || inner != m.detailW {
+	if e != m.detailFor || inner != m.detailW || e == nil {
 		if e != m.detailFor {
 			m.detail.GotoTop()
 		}
